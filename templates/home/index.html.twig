@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Home{% endblock %}
+
+{% block body %}
+    <h1>Welcome to the Home Page</h1>
+    <p>This is the home page of your application.</p>
+
+{#    {% if app.user %}#}
+{#        <p>Hello, {{ app.user.username }}!</p>#}
+{#        <p>You are logged in as a {{ app.user.roles|join(', ') }}.</p>#}
+{#    {% else %}#}
+{#        <p>You are not logged in. Please <a href="{{ path('app_login') }}">log in</a>.</p>#}
+{#    {% endif %}#}
+{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/home.css') }}">
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('js/home.js') }}"></script>
+{% endblock %}

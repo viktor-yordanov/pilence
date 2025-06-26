@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Projects{% endblock %}
+
+{% block body %}
+    <h1>Projects</h1>
+
+    <p>
+        <a href="{{ path('project_new') }}" class="btn btn-primary">Create new Project</a>
+    </p>
+
+    {{ include('projects/_list.html.twig') }}
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+{#    <link rel="stylesheet" href="{{ asset('css/projects.css') }}">#}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+{#    <script src="{{ asset('js/projects.js') }}"></script>#}
+{% endblock %}
