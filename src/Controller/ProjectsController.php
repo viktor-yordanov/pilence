@@ -14,6 +14,8 @@ class ProjectsController extends AbstractController
     #[Route('/projects', name: 'projects')]
     public function index(ProjectRepository $projectRepository): Response
     {
+//        $this->denyAccessUnlessGranted('ROLE_ADMIN');
+
         // Fetch projects from the database or service
         $projects = $projectRepository->findAll();
 
