@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\ProjectRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ProjectRepository::class)]
@@ -24,6 +26,24 @@ class Project
     private ?\DateTimeImmutable $createdAt = null;
     #[ORM\Column(type: 'datetime_immutable', nullable: true)]
     private ?\DateTimeImmutable $updatedAt = null;
+
+    /**
+     * @var Collection<int, Image>
+     */
+    #[ORM\OneToMany(targetEntity: Image::class, mappedBy: 'projectId', orphanRemoval: true)]
+    private Collection $images;
+
+    /**
+     * @var Collection<int, Category>
+     */
+    #[ORM\ManyToMany(targetEntity: Category::class, inversedBy: 'projects')]
+    private Collection $categories;
+
+    public function __construct()
+    {
+        $this->images = new ArrayCollection();
+        $this->categories = new ArrayCollection();
+    }
 
 
     public function getId(): ?int
@@ -72,6 +92,60 @@ class Project
     public function setUpdatedAt(\DateTimeImmutable $updatedAt): self
     {
         $this->updatedAt = $updatedAt;
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Image>
+     */
+    public function getImages(): Collection
+    {
+        return $this->images;
+    }
+
+    public function addImage(Image $image): static
+    {
+        if (!$this->images->contains($image)) {
+            $this->images->add($image);
+            $image->setProjectId($this);
+        }
+
+        return $this;
+    }
+
+    public function removeImage(Image $image): static
+    {
+        if ($this->images->removeElement($image)) {
+            // set the owning side to null (unless already changed)
+            if ($image->getProjectId() === $this) {
+                $image->setProjectId(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Category>
+     */
+    public function getCategories(): Collection
+    {
+        return $this->categories;
+    }
+
+    public function addCategory(Category $categoryId): static
+    {
+        if (!$this->categories->contains($categoryId)) {
+            $this->categories->add($categoryId);
+        }
+
+        return $this;
+    }
+
+    public function removeCategory(Category $categoryId): static
+    {
+        $this->categories->removeElement($categoryId);
+
         return $this;
     }
 }
