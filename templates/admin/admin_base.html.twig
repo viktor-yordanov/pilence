@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block menu_items %}
+<li class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle" href="{{ path('admin') }}" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        Manage
+    </a>
+    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+        <a class="dropdown-item" href="{{ path('admin_manage_homepage') }}">Homepage</a>
+        <a class="dropdown-item" href="{{ path('admin_manage_categories') }}">Categories</a>
+        <a class="dropdown-item" href="{{ path('admin_manage_projects') }}">Projects</a>
+    </div>
+</li>
+{% endblock %}
