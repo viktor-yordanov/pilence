@@ -2,7 +2,11 @@
 
 namespace App\Controller;
 
+use App\Entity\Category;
+use App\Form\CategoryForm;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
@@ -37,6 +41,28 @@ final class AdminController extends AbstractController
         // Logic to manage categories, e.g., listing, creating, updating, deleting categories
 
         return $this->render('admin/manage_categories.html.twig');
+    }
+
+    #[Route('/categories/new', name: 'admin_add_category')]
+    public function addCategory(Request $request, EntityManagerInterface $em): Response
+    {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
+
+        $category = new Category();
+        $form = $this->createForm(CategoryForm::class, $category);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em->persist($category);
+            $em->flush();
+
+            $this->addFlash('success', 'Category created!');
+            return $this->redirectToRoute('admin_add_category');
+        }
+
+        return $this->render('admin/add_category.html.twig', [
+            'form' => $form->createView(),
+        ]);
     }
 
     #[Route('/categories/{id}', name: 'admin_manage_category')]

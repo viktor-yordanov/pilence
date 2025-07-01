@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Create Category{% endblock %}
+{% block body %}
+    <h1>Create New Category</h1>
+    {{ form_start(form) }}
+    {{ form_row(form.title) }}
+    {{ form_row(form.slug) }}
+    <button class="btn btn-primary">Save</button>
+    {{ form_end(form) }}
+{% endblock %}
