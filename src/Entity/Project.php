@@ -107,7 +107,7 @@ class Project
     {
         if (!$this->images->contains($image)) {
             $this->images->add($image);
-            $image->setProjectId($this);
+            $image->setProject($this);
         }
 
         return $this;
@@ -117,8 +117,8 @@ class Project
     {
         if ($this->images->removeElement($image)) {
             // set the owning side to null (unless already changed)
-            if ($image->getProjectId() === $this) {
-                $image->setProjectId(null);
+            if ($image->getProject() === $this) {
+                $image->setProject(null);
             }
         }
 
