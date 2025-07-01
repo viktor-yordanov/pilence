@@ -3,6 +3,8 @@
 namespace App\Controller;
 
 use App\Entity\Category;
+use App\Entity\Project;
+use App\Form\AddProjectForm;
 use App\Form\CategoryForm;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -83,6 +85,30 @@ final class AdminController extends AbstractController
         // Logic to manage projects, e.g., listing, creating, updating, deleting projects
 
         return $this->render('admin/manage_projects.html.twig');
+    }
+
+    #[Route('/projects/new', name: 'admin_add_project')]
+    public function addProject(Request $request, EntityManagerInterface $em): Response
+    {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
+
+        $project = new Project();
+        $project->setCreatedAt(new \DateTimeImmutable());
+
+        $form = $this->createForm(AddProjectForm::class, $project);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em->persist($project);
+            $em->flush();
+
+            $this->addFlash('success', 'Project created!');
+            return $this->redirectToRoute('admin_add_project');
+        }
+
+        return $this->render('admin/add_project.html.twig', [
+            'form' => $form->createView(),
+        ]);
     }
 
     #[Route('/projects/{id}', name: 'admin_manage_project')]
