@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Upload Image{% endblock %}
+
+{% block body %}
+    <div class="container mt-4">
+        <h1 class="mb-4">Upload Image to {{ project.name }}</h1>
+        {{ form_start(form) }}
+        {{ form_widget(form) }}
+        <button class="btn btn-primary">Upload</button>
+        {{ form_end(form) }}
+        <a href="{{ path('admin_project_images', {id: project.id}) }}" class="btn btn-secondary mt-3">Back to Images</a>
+    </div>
+{% endblock %}

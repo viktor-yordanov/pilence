@@ -1,27 +1,14 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Manage a Category{% endblock %}
+{% block title %}Edit Category{% endblock %}
 
 {% block body %}
     <div class="container mt-4">
-        <h2>{{ category.title }}</h2>
-        <p>{{ category.slug }}</p>
-        <p>Projects:</p>
-        {% if projects|length > 0 %}
-            <ul>
-                {% for project in projects %}
-                    <li>
-                        <a href="{{ path('admin_edit_project', {id: project.id}) }}">{{ project.name }}</a>
-                        <br>
-                        <small>{{ project.description|default('No description') }}</small>
-                    </li>
-                {% endfor %}
-            </ul>
-        {% else %}
-            <p><em>No projects are currently assigned to this category.</em></p>
-        {% endif %}
-
-        <div class="mb-3">
-            <a href="{{ path('admin_manage_categories') }}" class="btn btn-secondary">Back to Categories</a>
-        </div>
+        <h1 class="mb-4">Edit Category</h1>
+        {{ form_start(form) }}
+        {{ form_widget(form) }}
+        <button class="btn btn-primary">Save</button>
+        {{ form_end(form) }}
+        <a href="{{ path('admin_manage_categories') }}" class="btn btn-secondary mt-3">Back to Categories</a>
+    </div>
 {% endblock %}
