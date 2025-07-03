@@ -5,10 +5,6 @@
 {% block body %}
     <h1>Projects</h1>
 
-    <p>
-        <a href="{{ path('project_new') }}" class="btn btn-primary">Create new Project</a>
-    </p>
-
     {{ include('projects/_list.html.twig') }}
 {% endblock %}
 

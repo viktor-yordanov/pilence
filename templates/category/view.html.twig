@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ category.title }}{% endblock %}
+
+{% block body %}
+    <h1>{{ category.title }}</h1>
+
+    {% for project in projects %}
+        <section class="mb-4">
+            <h2>{{ project.name }}</h2>
+            <p>{{ project.description }}</p>
+            <a href="{{ path('project_details', {id: project.id}) }}" class="btn btn-primary">View Project</a>
+        </section>
+    {% else %}
+        <p>No projects found in this category.</p>
+    {% endfor %}
+{% endblock %}
