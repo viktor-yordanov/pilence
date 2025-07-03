@@ -4,7 +4,24 @@
 
 {% block body %}
     <div class="container mt-4">
-        <h1>Manage a Category</h1>
-        <p>Here you can manage the content of the category.</p>
-    </div>
+        <h2>{{ category.title }}</h2>
+        <p>{{ category.slug }}</p>
+        <p>Projects:</p>
+        {% if projects|length > 0 %}
+            <ul>
+                {% for project in projects %}
+                    <li>
+                        <a href="{{ path('admin_edit_project', {id: project.id}) }}">{{ project.name }}</a>
+                        <br>
+                        <small>{{ project.description|default('No description') }}</small>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p><em>No projects are currently assigned to this category.</em></p>
+        {% endif %}
+
+        <div class="mb-3">
+            <a href="{{ path('admin_manage_categories') }}" class="btn btn-secondary">Back to Categories</a>
+        </div>
 {% endblock %}

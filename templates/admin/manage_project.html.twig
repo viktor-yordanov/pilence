@@ -1,10 +1,21 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Manage a Project{% endblock %}
+{% block title %}Edit Project{% endblock %}
 
 {% block body %}
-    <div class="container mt-4">
-        <h1>Manage a Project</h1>
-        <p>Here you can manage the content of the project.</p>
-    </div>
+    <h1>Edit Project</h1>
+
+{#    {{ include('admin/_edit_project_form.html.twig', { project: project }) }}#}
+
+    <a href="{{ path('admin_manage_projects') }}">back to list</a>
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    {# <link rel="stylesheet" href="{{ asset('css/projects.css') }}"> #}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {# <script src="{{ asset('js/projects.js') }}"></script> #}
 {% endblock %}

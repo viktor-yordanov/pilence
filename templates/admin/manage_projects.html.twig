@@ -5,6 +5,38 @@
 {% block body %}
     <div class="container mt-4">
         <h1>Manage Projects</h1>
-        <p>Here you can manage the content of the projects.</p>
+
+        <div class="mb-3">
+            <a href="{{ path('admin_add_project') }}" class="btn btn-primary">Add New Project</a>
+        </div>
+
+        {% if projects|length > 0 %}
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Description</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for project in projects %}
+                        <tr>
+                            <td>{{ project.id }}</td>
+                            <td>{{ project.name }}</td>
+                            <td>{{ project.description|default('No description') }}</td>
+                            <td>{{ project.createdAt|date }}</td>
+                            <td>
+                                <a href="{{ path('admin_edit_project', {id: project.id}) }}" class="btn btn-secondary">Edit</a>
+{#                                <a href="{{ path('admin_delete_project', {id: project.id}) }}" class="btn btn-danger">Delete</a>#}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p><em>No projects available.</em></p>
+        {% endif %}
     </div>
 {% endblock %}

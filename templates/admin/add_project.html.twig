@@ -4,6 +4,7 @@
 
 {% block body %}
     <h1>Create New Project</h1>
+    <a href="{{ path('admin_manage_projects') }}" class="btn btn-secondary mb-3">Back to Projects</a>
     {{ form_start(form) }}
     {{ form_row(form.name) }}
     {{ form_row(form.description) }}

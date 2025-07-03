@@ -6,6 +6,8 @@ use App\Entity\Category;
 use App\Entity\Project;
 use App\Form\AddProjectForm;
 use App\Form\CategoryForm;
+use App\Repository\CategoryRepository;
+use App\Repository\ProjectRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -36,13 +38,15 @@ final class AdminController extends AbstractController
     }
 
     #[Route('/categories', name: 'admin_manage_categories')]
-    public function manageCategories(): Response
+    public function manageCategories(CategoryRepository $categoryRepository): Response
     {
         $this->denyAccessUnlessGranted('ROLE_ADMIN');
 
-        // Logic to manage categories, e.g., listing, creating, updating, deleting categories
+        $categories = $categoryRepository->findAll();
 
-        return $this->render('admin/manage_categories.html.twig');
+        return $this->render('admin/manage_categories.html.twig', [
+            'categories' => $categories,
+        ]);
     }
 
     #[Route('/categories/new', name: 'admin_add_category')]
@@ -67,24 +71,27 @@ final class AdminController extends AbstractController
         ]);
     }
 
-    #[Route('/categories/{id}', name: 'admin_manage_category')]
-    public function manageCategory(int $id): Response
+    #[Route('/categories/{id}', name: 'admin_edit_category')]
+    public function manageCategory(Category $category): Response
     {
         $this->denyAccessUnlessGranted('ROLE_ADMIN');
 
-        // Logic to manage category, e.g., listing, creating, updating, deleting categories
-
-        return $this->render('admin/manage_category.html.twig');
+        return $this->render('admin/manage_category.html.twig', [
+            'category' => $category,
+            'projects' => $category->getProjects(),
+        ]);
     }
 
     #[Route('/projects', name: 'admin_manage_projects')]
-    public function manageProjects(): Response
+    public function manageProjects(ProjectRepository $projectRepository): Response
     {
         $this->denyAccessUnlessGranted('ROLE_ADMIN');
 
-        // Logic to manage projects, e.g., listing, creating, updating, deleting projects
+        $projects = $projectRepository->findAll();
 
-        return $this->render('admin/manage_projects.html.twig');
+        return $this->render('admin/manage_projects.html.twig', [
+            'projects' => $projects,
+        ]);
     }
 
     #[Route('/projects/new', name: 'admin_add_project')]
@@ -111,13 +118,13 @@ final class AdminController extends AbstractController
         ]);
     }
 
-    #[Route('/projects/{id}', name: 'admin_manage_project')]
-    public function manageProject(int $id): Response
+    #[Route('/projects/{id}', name: 'admin_edit_project')]
+    public function manageProject(Project $project): Response
     {
         $this->denyAccessUnlessGranted('ROLE_ADMIN');
 
-        // Logic to manage project, e.g., listing, creating, updating, deleting projects
-
-        return $this->render('admin/manage_project.html.twig');
+        return $this->render('admin/manage_project.html.twig', [
+            'project' => $project,
+        ]);
     }
 }
