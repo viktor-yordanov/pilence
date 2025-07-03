@@ -30,7 +30,7 @@ class Project
     /**
      * @var Collection<int, Image>
      */
-    #[ORM\OneToMany(targetEntity: Image::class, mappedBy: 'projectId', orphanRemoval: true)]
+    #[ORM\OneToMany(targetEntity: Image::class, mappedBy: 'project', orphanRemoval: true)]
     private Collection $images;
 
     /**
