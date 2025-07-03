@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Project Images{% endblock %}
+
+{% block body %}
+    <div class="container mt-4">
+        <h1 class="mb-4">Images for {{ project.name }}</h1>
+        <a href="{{ path('admin_project_upload_image', {id: project.id}) }}" class="btn btn-primary mb-3">Upload Image</a>
+        <a href="{{ path('admin_manage_projects') }}" class="btn btn-secondary mb-3">Back to Projects</a>
+
+        {% if images|length > 0 %}
+            <div class="row">
+                {% for image in images %}
+                    <div class="col-md-3 text-center mb-4">
+                        <img src="{{ asset('images/' ~ image.filename) }}" class="img-fluid mb-2" alt="">
+                        <form action="{{ path('admin_delete_image', {id: image.id}) }}" method="post" onsubmit="return confirm('Delete this image?');">
+                            <input type="hidden" name="_token" value="{{ csrf_token('delete_image' ~ image.id) }}">
+                            <button class="btn btn-sm btn-danger">Delete</button>
+                        </form>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <p>No images uploaded.</p>
+        {% endif %}
+    </div>
+{% endblock %}

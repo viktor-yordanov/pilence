@@ -4,7 +4,7 @@
 
 {% block body %}
     <div class="container mt-4">
-        <h1>Manage Projects</h1>
+        <h1 class="mb-4">Projects</h1>
 
         <div class="mb-3">
             <a href="{{ path('admin_add_project') }}" class="btn btn-primary">Add New Project</a>
@@ -17,6 +17,7 @@
                         <th>ID</th>
                         <th>Name</th>
                         <th>Description</th>
+                        <th>Created</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
@@ -26,10 +27,14 @@
                             <td>{{ project.id }}</td>
                             <td>{{ project.name }}</td>
                             <td>{{ project.description|default('No description') }}</td>
-                            <td>{{ project.createdAt|date }}</td>
-                            <td>
-                                <a href="{{ path('admin_edit_project', {id: project.id}) }}" class="btn btn-secondary">Edit</a>
-{#                                <a href="{{ path('admin_delete_project', {id: project.id}) }}" class="btn btn-danger">Delete</a>#}
+                            <td>{{ project.createdAt|date('Y-m-d') }}</td>
+                            <td class="d-flex gap-1">
+                                <a href="{{ path('admin_edit_project', {id: project.id}) }}" class="btn btn-sm btn-secondary">Edit</a>
+                                <a href="{{ path('admin_project_images', {id: project.id}) }}" class="btn btn-sm btn-info">Images</a>
+                                <form action="{{ path('admin_delete_project', {id: project.id}) }}" method="post" onsubmit="return confirm('Delete this project?');">
+                                    <input type="hidden" name="_token" value="{{ csrf_token('delete_project' ~ project.id) }}">
+                                    <button class="btn btn-sm btn-danger">Delete</button>
+                                </form>
                             </td>
                         </tr>
                     {% endfor %}

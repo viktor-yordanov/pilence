@@ -3,12 +3,14 @@
 {% block title %}Create Project{% endblock %}
 
 {% block body %}
-    <h1>Create New Project</h1>
-    <a href="{{ path('admin_manage_projects') }}" class="btn btn-secondary mb-3">Back to Projects</a>
-    {{ form_start(form) }}
-    {{ form_row(form.name) }}
-    {{ form_row(form.description) }}
-    {{ form_row(form.categories) }}
-    <button class="btn btn-primary">Save</button>
-    {{ form_end(form) }}
+    <div class="container mt-4">
+        <h1 class="mb-4">Create New Project</h1>
+        <a href="{{ path('admin_manage_projects') }}" class="btn btn-secondary mb-3">Back to Projects</a>
+        {{ form_start(form) }}
+        {{ form_row(form.name) }}
+        {{ form_row(form.description) }}
+        {{ form_row(form.categories) }}
+        <button class="btn btn-primary">Save</button>
+        {{ form_end(form) }}
+    </div>
 {% endblock %}
