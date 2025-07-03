@@ -1,0 +1,16 @@
+<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+    <a class="dropdown-item" href="{{ path('projects') }}">All Projects</a>
+    <div class="dropdown-divider"></div>
+    {% for category in categories %}
+        <div class="dropdown-submenu">
+            <a class="dropdown-item dropdown-toggle" href="{{ path('category_view', {id: category.id}) }}">{{ category.title }}</a>
+            <div class="dropdown-menu">
+                {% for project in category.projects %}
+                    <a class="dropdown-item" href="{{ path('project_details', {id: project.id}) }}">{{ project.name }}</a>
+                {% else %}
+                    <span class="dropdown-item disabled">No projects</span>
+                {% endfor %}
+            </div>
+        </div>
+    {% endfor %}
+</div>
