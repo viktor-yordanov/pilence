@@ -3,7 +3,7 @@
     <div class="dropdown-divider"></div>
     {% for category in categories %}
         <div class="dropdown-submenu">
-            <a class="dropdown-item dropdown-toggle" href="{{ path('category_view', {id: category.id}) }}">{{ category.title }}</a>
+            <a class="dropdown-item dropdown-toggle" href="{{ path('category_view', {id: category.id}) }}" data-turbo="false">{{ category.title }}</a>
             <div class="dropdown-menu">
                 {% for project in category.projects %}
                     <a class="dropdown-item" href="{{ path('project_details', {id: project.id}) }}">{{ project.name }}</a>
