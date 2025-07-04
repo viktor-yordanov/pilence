@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\ProjectRepository;
+use App\Entity\Section;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -39,10 +40,17 @@ class Project
     #[ORM\ManyToMany(targetEntity: Category::class, inversedBy: 'projects')]
     private Collection $categories;
 
+    /**
+     * @var Collection<int, Section>
+     */
+    #[ORM\OneToMany(targetEntity: Section::class, mappedBy: 'project', cascade: ['persist', 'remove'], orphanRemoval: true)]
+    private Collection $sections;
+
     public function __construct()
     {
         $this->images = new ArrayCollection();
         $this->categories = new ArrayCollection();
+        $this->sections = new ArrayCollection();
     }
 
 
@@ -145,6 +153,35 @@ class Project
     public function removeCategory(Category $categoryId): static
     {
         $this->categories->removeElement($categoryId);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Section>
+     */
+    public function getSections(): Collection
+    {
+        return $this->sections;
+    }
+
+    public function addSection(Section $section): static
+    {
+        if (!$this->sections->contains($section)) {
+            $this->sections->add($section);
+            $section->setProject($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSection(Section $section): static
+    {
+        if ($this->sections->removeElement($section)) {
+            if ($section->getProject() === $this) {
+                $section->setProject(null);
+            }
+        }
 
         return $this;
     }

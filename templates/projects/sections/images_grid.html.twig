@@ -1,0 +1,9 @@
+<section class="project-section">
+    <div class="row">
+        {% for image in section.images %}
+            <div class="col-md-4 mb-3">
+                <img src="{{ asset('images/' ~ image.filename) }}" class="img-fluid w-100" alt="">
+            </div>
+        {% endfor %}
+    </div>
+</section>

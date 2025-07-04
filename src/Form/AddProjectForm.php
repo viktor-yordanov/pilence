@@ -4,6 +4,8 @@ namespace App\Form;
 
 use App\Entity\Category;
 use App\Entity\Project;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+use App\Form\SectionType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -21,7 +23,15 @@ class AddProjectForm extends AbstractType
                 'choice_label' => 'title',
                 'multiple' => true,
             ])
-        ;
+            ->add('sections', CollectionType::class, [
+                'entry_type' => SectionType::class,
+                'entry_options' => [
+                    'project' => $builder->getData(),
+                ],
+                'allow_add' => true,
+                'allow_delete' => true,
+                'by_reference' => false,
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void
