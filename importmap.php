@@ -25,4 +25,7 @@ return [
     '@hotwired/turbo' => [
         'version' => '7.3.0',
     ],
+    'section-collection' => [
+        'path' => './assets/controllers/section_collection_controller.js',
+    ],
 ];
