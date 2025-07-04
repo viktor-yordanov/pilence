@@ -9,6 +9,10 @@
                 "enabled": false,
                 "fetch": "eager"
             }
+        },
+        "section-collection": {
+            "enabled": true,
+            "fetch": "lazy"
         }
     },
     "entrypoints": []

@@ -6,7 +6,26 @@
     <div class="container mt-4">
         <h1 class="mb-4">Edit Project</h1>
         {{ form_start(form) }}
-        {{ form_widget(form) }}
+        {{ form_row(form.name) }}
+        {{ form_row(form.description) }}
+        {{ form_row(form.categories) }}
+        <div data-controller="section-collection">
+            <div data-section-collection-target="collection">
+                {% for sectionField in form.sections %}
+                    <div data-section-collection-target="item" class="mb-3">
+                        {{ form_row(sectionField) }}
+                        <button type="button" class="btn btn-danger mt-2" data-action="section-collection#remove">Remove</button>
+                    </div>
+                {% endfor %}
+            </div>
+            <template data-section-collection-target="prototype">
+                <div data-section-collection-target="item" class="mb-3">
+                    {{ form_row(form.sections.vars.prototype) }}
+                    <button type="button" class="btn btn-danger mt-2" data-action="section-collection#remove">Remove</button>
+                </div>
+            </template>
+            <button type="button" class="btn btn-secondary" data-action="section-collection#add">Add section</button>
+        </div>
         <button class="btn btn-primary">Save</button>
         {{ form_end(form) }}
         <a href="{{ path('admin_manage_projects') }}" class="btn btn-secondary mt-3">Back to list</a>
