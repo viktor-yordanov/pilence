@@ -34,9 +34,19 @@ class SectionType extends AbstractType
                 'multiple' => true,
                 'required' => false,
                 'query_builder' => function (ImageRepository $repo) use ($project) {
-                    return $repo->createQueryBuilder('i')
-                        ->andWhere('i.project = :project')
-                        ->setParameter('project', $project);
+                    $qb = $repo->createQueryBuilder('i');
+
+                    if ($project && null !== $project->getId()) {
+                        $qb->andWhere('i.project = :project')
+                            ->setParameter('project', $project);
+                    } else {
+                        // Prevent Doctrine from trying to bind an unsaved entity
+                        // when creating a new project. Returning an empty result
+                        // avoids the "binding entities" error during form building.
+                        $qb->where('1 = 0');
+                    }
+
+                    return $qb;
                 },
             ]);
     }
