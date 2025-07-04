@@ -12,6 +12,10 @@
         <p>Last updated: {{ project.updatedAt|date('Y-m-d H:i') }}</p>
     </div>
 
+    {% for section in project.sections %}
+        {% include 'projects/sections/' ~ section.template.slug ~ '.html.twig' with { 'section': section } %}
+    {% endfor %}
+
     {% if project.images|length > 0 %}
         <div class="row mt-4">
             {% for image in project.images %}

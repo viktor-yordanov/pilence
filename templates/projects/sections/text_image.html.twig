@@ -1,0 +1,12 @@
+<section class="project-section">
+    <div class="row align-items-center">
+        <div class="col-md-6">
+            <p>{{ section.content }}</p>
+        </div>
+        <div class="col-md-6">
+            {% if section.images|length %}
+                <img src="{{ asset('images/' ~ section.images.first.filename) }}" class="img-fluid w-100" alt="">
+            {% endif %}
+        </div>
+    </div>
+</section>

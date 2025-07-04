@@ -1,0 +1,5 @@
+<section class="project-section">
+    {% if section.images|length %}
+        <img src="{{ asset('images/' ~ section.images.first.filename) }}" class="img-fluid w-100" alt="">
+    {% endif %}
+</section>
