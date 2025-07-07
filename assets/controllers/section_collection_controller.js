@@ -5,9 +5,10 @@ export default class extends Controller {
     static values = { index: Number };
 
     connect() {
-        if (isNaN(this.indexValue)) {
+        if (!this.hasIndexValue) {
             this.indexValue = this.collectionTarget.children.length;
         }
+        console.log('SectionCollectionController connected with index:', this.indexValue);
     }
 
     add(event) {
