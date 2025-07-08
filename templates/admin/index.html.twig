@@ -8,7 +8,8 @@
     <div class="row">
         <div class="col-md-4 mb-3">
             <div class="card h-100 text-center">
-                <div class="card-body d-flex flex-column">
+                <div class="card-body d-flex flex-column hidden-birdie">
+                    <img src="{{ asset('svg/bird.svg') }}" alt="Admin Icon" class="birdie">
                     <h5 class="card-title">Homepage</h5>
                     <p class="card-text">Update landing page content</p>
                     <a href="{{ path('admin_manage_homepage') }}" class="btn btn-primary mt-auto">Manage</a>
@@ -17,7 +18,8 @@
         </div>
         <div class="col-md-4 mb-3">
             <div class="card h-100 text-center">
-                <div class="card-body d-flex flex-column">
+                <div class="card-body d-flex flex-column hidden-birdie">
+                    <img src="{{ asset('svg/bird.svg') }}" alt="Admin Icon" class="birdie">
                     <h5 class="card-title">Categories</h5>
                     <p class="card-text">Manage project categories</p>
                     <a href="{{ path('admin_manage_categories') }}" class="btn btn-primary mt-auto">View</a>
@@ -26,7 +28,8 @@
         </div>
         <div class="col-md-4 mb-3">
             <div class="card h-100 text-center">
-                <div class="card-body d-flex flex-column">
+                <div class="card-body d-flex flex-column hidden-birdie">
+                    <img src="{{ asset('svg/bird.svg') }}" alt="Admin Icon" class="birdie">
                     <h5 class="card-title">Projects</h5>
                     <p class="card-text">Manage projects and images</p>
                     <a href="{{ path('admin_manage_projects') }}" class="btn btn-primary mt-auto">View</a>
@@ -35,4 +38,25 @@
         </div>
     </div>
 </div>
+{% endblock %}
+
+{% block stylesheets %}
+    {% if parent() %}{{ parent() }}{% endif %}
+<style>
+.birdie {
+    width: 100px;
+    height: 100px;
+    margin-bottom: 20px;
+    position: absolute;
+    z-index: -1;
+    top: 0;
+    left: 50%;
+    transition: top 0.3s ease-in-out;
+}
+.hidden-birdie:hover .birdie {
+    top: -70px;
+    transition: top 0.3s ease-in-out;
+}
+
+</style>
 {% endblock %}
