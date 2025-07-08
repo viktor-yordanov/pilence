@@ -28,4 +28,17 @@ return [
     'section-collection' => [
         'path' => './assets/controllers/section_collection_controller.js',
     ],
+    'bootstrap' => [
+        'version' => '5.3.7',
+    ],
+    '@popperjs/core' => [
+        'version' => '2.11.8',
+    ],
+    'bootstrap/dist/css/bootstrap.min.css' => [
+        'version' => '5.3.7',
+        'type' => 'css',
+    ],
+    'jquery' => [
+        'version' => '3.7.1',
+    ],
 ];
